@@ -85,9 +85,12 @@ source myenv38/bin/activate
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 pip install torch_points3d==1.3.0
 pip install torch-scatter==2.1.1
+pip install torch-sparse==0.6.14
 pip install torch-points-kernels==0.6.10
 pip install torch-geometric==1.7.2
 pip install timm==0.9.2
+pip install termcolor==2.3.0
+pip install h5py==3.8.0
 pip install tensorboardX==2.6
 pip install numpy==1.20.3
 ```
