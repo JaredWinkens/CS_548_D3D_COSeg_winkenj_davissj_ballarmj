@@ -1,6 +1,6 @@
 DATA:
   data_name: s3dis
-  data_root: # Fill in the pre-processed data path (which contains the .npy files)
+  data_root: /media/jared/New Volume/S3DIS/S3DIS/Stanford3dDataset_v1.2_Aligned_Version/blocks_bs1_s1/data # Fill in the pre-processed data path (which contains the .npy files)
   classes: 13
   fea_dim: 6
   voxel_size: 0.02
@@ -47,7 +47,7 @@ TRAIN:
   use_amp: True
   optimizer: AdamW 
   ignore_label: 255
-  train_gpu: [0, 1, 2, 3]
+  train_gpu: [0] #, 1, 2, 3]
   workers: 16  # data loader workers
   batch_size: 8  # batch size for training
   batch_size_val: 4  # batch size for validation during training, memory and speed tradeoff
@@ -63,7 +63,7 @@ TRAIN:
   print_freq: 1
   save_freq: 1
   save_path: runs/s3dis_stratified_transformer
-  weight:  # path to initial weight (default: none)
+  weight:  /media/jared/New Volume/s3_s1pre/s3_s1pre/model/model_best.pth # path to initial weight (default: none)
   resume:  # path to latest checkpoint (default: none)
   evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
   eval_freq: 1

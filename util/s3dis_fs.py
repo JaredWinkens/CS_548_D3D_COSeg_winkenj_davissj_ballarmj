@@ -123,7 +123,7 @@ class S3DIS_base(Dataset):
                 )
 
             with open(class2scans_file, "wb") as f:
-                pickle.dump(class2scans, f, pickle.HIGHEST_PROTOCOL)
+                pickle.dump(class2scans, f, protocol=4) #pickle.HIGHEST_PROTOCOL)
         return class2scans
 
 

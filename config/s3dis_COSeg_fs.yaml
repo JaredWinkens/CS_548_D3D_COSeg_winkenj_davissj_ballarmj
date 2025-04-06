@@ -1,12 +1,12 @@
 DATA:
   data_name: s3dis
-  data_root: # Fill in the pre-processed data path (which contains the .npy files)
+  data_root: /media/jared/New Volume/S3DIS/S3DIS/Stanford3dDataset_v1.2_Aligned_Version/blocks_bs1_s1/data # Fill in the pre-processed data path (which contains the .npy files)
   classes: 13
   fea_dim: 6
   voxel_size: 0.02
   voxel_max: 20480
   loop: 1
-  cvfold: 1
+  cvfold: 0
 
 TRAIN:
   #arch
@@ -47,7 +47,7 @@ TRAIN:
   use_amp: True
   optimizer: AdamW 
   ignore_label: 255
-  train_gpu: [0, 1, 2, 3]
+  train_gpu: [0] #, 1, 2, 3]
   workers: 16  # data loader workers
   base_lr: 0.00005
   epochs: 100
@@ -62,7 +62,7 @@ TRAIN:
   print_freq: 1
   save_freq: 1
   save_path: ./saved_models # Fill the path to store the trained model
-  weight:  # path to initial weight (default: none)
+  weight:  /home/jared/New Volume/s30_1w5s-20250405T163209Z-001/s30_1w5s/model_best.pth # path to initial weight (default: none)
   resume:  # path to latest checkpoint (default: none)
   evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
   eval_freq: 1
@@ -70,12 +70,12 @@ TRAIN:
 Few-shot:
   num_episode: 400
   n_way: 1
-  k_shot: 1
+  k_shot: 5
   n_queries: 1
-  num_episode_per_comb: 1000
+  num_episode_per_comb: 100
   pretrain_backbone:
   n_subprototypes: 100
-  vis: 0
+  vis: 1
   forvis: 0
   vis_save_path:
   target_class: table
