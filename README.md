@@ -1,3 +1,6 @@
+# This is a fork created for a CS 548 class project at SUNY Polytechnic
+### Team Members: Jared Winkens, Sawyer Davis, Michael Ballard
+
 # [CVPR 2024] Rethinking Few-shot 3D Point Cloud Semantic Segmentation
 
 *Zhaochong An, Guolei Sun<sup>†</sup>, Yun Liu<sup>†</sup>, Fayao Liu, Zongwei Wu, Dan Wang, Luc Van Gool, Serge Belongie*
