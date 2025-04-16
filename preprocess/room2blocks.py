@@ -24,6 +24,8 @@ def room2blocks(data, block_size, stride, min_npts):
 
     xyz = data[:, :3]
     xyz_min = np.amin(xyz, axis=0)
+    print(f"XYZ min: {xyz_min}")
+    print(f"XYZ range: {np.amax(xyz, axis=0) - xyz_min}")
     xyz -= xyz_min
     xyz_max = np.amax(xyz, axis=0)
 
@@ -48,8 +50,9 @@ def room2blocks(data, block_size, stride, min_npts):
         if (
             np.sum(cond) < min_npts
         ):  # discard block if there are less than 100 pts.
+            #print("Block {0} has {1} points.".format(idx, np.sum(cond)))
             continue
-
+        print("Block {0} has {1} points.".format(idx, np.sum(cond)))
         block = data[cond, :]
         blocks_list.append(block)
 
@@ -64,6 +67,7 @@ def room2blocks_wrapper(room_path, block_size, stride, min_npts):
     else:
         print("Unknown file type! exiting.")
         exit()
+    data[:, :3] = data[:, :3] / 100.0
     return room2blocks(data, block_size, stride, min_npts)
 
 

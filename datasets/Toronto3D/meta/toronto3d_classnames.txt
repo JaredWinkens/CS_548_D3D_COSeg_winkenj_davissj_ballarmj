@@ -1,0 +1,9 @@
+Unclassified
+Ground
+Road_markings
+Natural
+Building
+Utility_line
+Pole
+Car
+Fence
