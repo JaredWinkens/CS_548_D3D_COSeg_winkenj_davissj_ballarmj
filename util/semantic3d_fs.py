@@ -34,10 +34,9 @@ class semantic3d_base(Dataset):
         ) = (split, voxel_size, transform, voxel_max, shuffle_index, loop)
 
         self.data_root = data_root
-        # Classes: {0:'ceiling', 1:'floor', 2:'wall', 3:'beam',
-        #           4:'column', 5:'window', 6:'door', 7:'table',
-        #           8:'chair', 9:'sofa', 10:'bookcase', 11:'board', 12:'clutter'}
-        self.class_count = 13
+        # Classes: {0:'unlabeled', 1:'man-made terrain', 2:'natural terrain', 3:'high vegetation',
+        #           4:'low vegetation', 5:'buildings', 6:'hard scape', 7:'scanning artefacts', 8:'cars'}
+        self.class_count = 9
         class_names = open(
             os.path.join(
                 os.path.dirname(os.path.dirname(data_root)),
@@ -51,14 +50,13 @@ class semantic3d_base(Dataset):
         print(self.class2type)
         self.type2class = {self.class2type[t]: t for t in self.class2type}
         self.fold_0 = [
-            "beam",
-            "board",
-            "bookcase",
-            "ceiling",
-            "chair",
-            "column",
+            "unlabeled",
+            "man-made terrain",
+            "natural terrain",
+            "high vegetation",
+            "low vegetation",
         ]
-        self.fold_1 = ["door", "floor", "sofa", "table", "wall", "window"]
+        self.fold_1 = ["buildings", "hard scape", "scanning artefacts", "cars"]
 
         if cvfold == 0:
             self.test_classes = [self.type2class[i] for i in self.fold_0]
@@ -285,7 +283,7 @@ class semantic3d_FS(semantic3d_base):
             all_scannames = self.class2scans[sampled_class].copy()
             all_scannames = [x for x in all_scannames if x not in black_list]
             selected_scannames = np.random.choice(
-                all_scannames, self.k_shot + self.n_queries, replace=False
+                all_scannames, self.k_shot + self.n_queries, replace=True
             )
             black_list.extend(selected_scannames)
             query_scannames = selected_scannames[: self.n_queries]
