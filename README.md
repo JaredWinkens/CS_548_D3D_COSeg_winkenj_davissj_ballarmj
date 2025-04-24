@@ -1,5 +1,12 @@
 # This is a fork created for a CS 548 class project at SUNY Polytechnic
+
 ### Team Members: Jared Winkens, Sawyer Davis, Michael Ballard
+
+### Modifactions:
+- Added 3 new datasets (Toronto3D, OpenTrench3D, Semantic3D)
+- Added scripts for preprocessing new datasets
+- Created instructions to facilitate adding new datasets
+- Updated the setup process to make it more comprehensive 
 
 # [CVPR 2024] Rethinking Few-shot 3D Point Cloud Semantic Segmentation
 
@@ -73,11 +80,19 @@ python3 setup.py install
 
 You can either directly download the preprocessed dataset directly from the links provided below or perform the preprocessing steps on your own.
 
-### Preprocessed Datasets
+### Original Preprocessed Datasets
 | Dataset | Download |
 | ------------------ | -------|
 | S3DIS | [Download link](https://drive.google.com/file/d/1frJ8nf9XLK_fUBG4nrn8Hbslzn7914Ru/view?usp=drive_link) |
 | ScanNet | [Download link](https://drive.google.com/file/d/19yESBZumU-VAIPrBr8aYPaw7UqPia4qH/view?usp=drive_link) |
+
+### New Preprocessed Datasets
+| Dataset | Download |
+| ------------------ | -------|
+| Toronto3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EZtBpaGr-o1KmiHuDhO2Y24BmK-bKJudWzqZsg1olK5Fmw?e=eof4mJ) |
+| OpenTrench3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EYg3yq19GhpLtAmcpNUMUn4BFY8cvHv4MWh4sd4q7sTO4A?e=80gMiK) |
+| Semantic3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EaJ5ILhaMVlCg8x9qzJy_G0B388JOdmZSGdrbwMAU_iZbg?e=OqwPp9) |
+
 
 ### Preprocessing Instructions
 
