@@ -173,69 +173,21 @@ Additionally, if you would like to train/test this approach on a brand new datas
 
 ### Preprocessing Instructions
 
-**S3DIS**
-1. **Download**: [S3DIS Dataset Version 1.2](http://buildingparser.stanford.edu/dataset.html).
-2. **Preprocessing**: Re-organize raw data into `npy` files:
+1. **Download Raw Data** (choose one below):
+   - [S3DIS Dataset Version 1.2](http://buildingparser.stanford.edu/dataset.html)
+   - [ScanNet V2](http://www.scan-net.org/)
+   - [Semantic3D](https://www.semantic3d.net/)
+   - [Toronto-3D](https://github.com/WeikaiTan/Toronto-3D)
+   - [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
+3. **Preprocessing**: Re-organize raw data into `npy` files:
    ```bash
    cd preprocess
-   python collect_s3dis_data.py --data_path [PATH_to_S3DIS_raw_data] --save_path [PATH_to_S3DIS_processed_data]
+   python collect_[DATASET_NAME]_data.py --data_path [PATH_to_[DATASET_NAME]_raw_data] --save_path [PATH_to_[DATASET_NAME]_processed_data]
    ```
-   The generated numpy files will be stored in `PATH_to_S3DIS_processed_data/scenes`.
-3. **Splitting Rooms into Blocks**:
+   The generated numpy files will be stored in `PATH_to_[DATASET_NAME]_processed_data/scenes`.
+4. **Splitting Rooms into Blocks**:
     ```bash
-    python room2blocks.py --data_path [PATH_to_S3DIS_processed_data]/scenes
-    ```
-
-
-**ScanNet**
-1. **Download**: [ScanNet V2](http://www.scan-net.org/).
-2. **Preprocessing**: Re-organize raw data into `npy` files:
-	```bash
-	cd preprocess
-	python collect_scannet_data.py --data_path [PATH_to_ScanNet_raw_data] --save_path [PATH_to_ScanNet_processed_data]
-	```
-   The generated numpy files will be stored in `PATH_to_ScanNet_processed_data/scenes`.
-3. **Splitting Rooms into Blocks**:
-    ```bash
-    python room2blocks.py --data_path [PATH_to_ScanNet_processed_data]/scenes
-    ```
-**Semantic3D**
-1. **Download**: [Semantic3D](https://www.semantic3d.net/).
-2. **Preprocessing**: Re-organize raw data into `npy` files:
-	```bash
-	cd preprocess
-	python collect_semantic3d_data.py --data_path [PATH_to_Semantic3D_raw_data] --save_path [PATH_to_Semantic3D_processed_data]
-	```
-   The generated numpy files will be stored in `PATH_to_Semantic3D_processed_data/scenes`.
-3. **Splitting Rooms into Blocks**:
-    ```bash
-    python room2blocks.py --data_path [PATH_to_Semantic3D_processed_data]/scenes
-
-
-**Toronto3D**
-1. **Download**: [Toronto-3D](https://github.com/WeikaiTan/Toronto-3D).
-2. **Preprocessing**: Re-organize raw data into `npy` files:
-	```bash
-	cd preprocess
-	python collect_toronto3d_data.py --data_path [PATH_to_Toronto3D_raw_data] --save_path [PATH_to_Toronto3D_processed_data]
-	```
-   The generated numpy files will be stored in `PATH_to_Toronto3D_processed_data/scenes`.
-3. **Splitting Rooms into Blocks**:
-    ```bash
-    python room2blocks.py --data_path [PATH_to_Toronto3D_processed_data]/scenes
-    ```
-
-
-**OpenTrench3D**
-1. **Download**: [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
-2. **Preprocessing**: Re-organize data into `npy` files:
-	  ```bash
-	  cd preprocess
-	  python collect_opentrench3d_data.py --data_path [PATH_to_OpenTrench3D_raw_data] --save_path [PATH_to_OpenTrench3D_processed_data]
-	  ```
-3. **Splitting Rooms into Blocks**:
-    ```bash
-    python room2blocks.py --data_path [PATH_to_OpenTrench3D_processed_data]/scenes
+    python room2blocks.py --data_path [PATH_to_[DATASET_NAME]_processed_data]/scenes
     ```
 After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
 
