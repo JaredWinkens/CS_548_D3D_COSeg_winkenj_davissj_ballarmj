@@ -42,43 +42,120 @@ Welcome to the official PyTorch implementation repository of our paper [**Rethin
 3. **Novel Method (*COSeg*)**: Our method introduces **a novel correlation optimization paradigm**, diverging from the traditional feature optimization approach used by all previous *FS-PCS* models. COSeg achieves state-of-the-art performance on both S3DIS and ScanNetv2 datasets, demonstrating effective contextual learning and background correlation adjustment ability.
 
 
-# Get Started
+# Get Started (New Version)
 
-## Environment
-The following environment setup instructions have been tested on RTX 3090 GPUs with GCC 6.3.0.
+## Prerequsites
+**OS**: Ubuntu 22.04
 
-1. **Install dependencies**
+Ensure you have installed `gcc 10`, `cuda 11.3`, and `nvcc`.
 
+## Install GCC 10
+### Check if GCC 10 is already installed
 ```
-pip install -r requirements.txt
+gcc --version
+```
+### If not installed:
+### 1. Add the toolchain PPA (if not already added)
+```
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt update
+```
+### 2. Install GCC 10 and G++ 10
+```
+sudo apt install gcc-10 g++-10
+```
+### 3. Switch to GCC 10 (Permanently)
+```
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
 ```
 
-If you have any problem with the above command, you can also install them by
+## Intall CUDA 11.3 and NVCC
+### Make sure you already have an NVIDIA driver installed and working
+```
+nvidia-smi
+```
+### If not installed yet, install one that's compatible:
+```
+sudo apt install nvidia-driver-525
+```
+### Manually Install Only the Toolkit (No Driver)
+```
+sudo apt-get install cuda-toolkit-11-3
+```
 
+## Setup Virtual Environment
+
+**Open a terminal and do the following:**
+
+### Make sure Python 3.8 is installed
+```
+python3.8 --version
+```
+### If not installed, install it:
+```
+sudo apt install python3.8 python3.8-venv
+```
+### If the above command throws an error, do the following:
+```
+sudo apt update
+sudo apt install -y build-essential libssl-dev zlib1g-dev \
+libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
+libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev wget
+```
+```
+cd /tmp
+wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz
+tar -xzf Python-3.7.17.tgz
+cd Python-3.7.17
+./configure --enable-optimizations
+make -j$(nproc)
+sudo make altinstall
+```
+### 1. Create a new venv using Python 3.8
+```
+python3.8 -m venv myenv38
+```
+### 2. Activate the venv
+```
+source myenv38/bin/activate
+```
+### 3. Install Dependencies
 ```
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 pip install torch_points3d==1.3.0
 pip install torch-scatter==2.1.1
+pip install torch-sparse==0.6.14
 pip install torch-points-kernels==0.6.10
 pip install torch-geometric==1.7.2
 pip install timm==0.9.2
+pip install termcolor==2.3.0
+pip install h5py==3.8.0
 pip install tensorboardX==2.6
 pip install numpy==1.20.3
 ```
 
-For incompatiable installation issues, such as wanting a higher torch version (e.g., 2.1.0) but conflicts with torch_points3d, please refer to this thread: https://github.com/ZhaochongAn/COSeg/issues/16 or feel free to open a new discussion for further assistance.
+For incompatible installation issues, such as wanting a higher torch version (e.g., 2.1.0) but conflicts with torch_points3d, please refer to this thread: https://github.com/ZhaochongAn/COSeg/issues/16 or feel free to open a new discussion for further assistance.
 
-2. **Compile pointops**
-
-Ensure you have `gcc`, `cuda`, and `nvcc` installed. Compile and install pointops2 as follows:
+### 4. Clone repo
 ```
-cd lib/pointops2
+git clone https://github.com/JaredWinkens/COSeg.git
+```
+
+### 5. Compile pointops
+```
+cd COSeg/lib/pointops2
 python3 setup.py install
 ```
 
 ## Datasets Preparation
 
-You can either directly download the preprocessed dataset directly from the links provided below or perform the preprocessing steps on your own.
+You can either directly download the preprocessed dataset from the links provided below or perform the preprocessing steps on your own.
+
+Additionally, if you would like to train/test this approach on a brand new dataset, please follow the instructions in [ADD_DATASET.md](./ADD_DATASET.md).
 
 ### Original Preprocessed Datasets
 | Dataset | Download |
