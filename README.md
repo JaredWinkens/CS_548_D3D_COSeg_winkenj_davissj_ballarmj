@@ -229,10 +229,10 @@ Additionally, if you would like to train/test this approach on a brand new datas
 **OpenTrench3D**
 1. **Download**: [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
 2. **Preprocessing**: Re-organize data into `npy` files:
-  ```bash
-  cd preprocess
-  python collect_opentrench3d_data.py --data_path [PATH_to_OpenTrench3D_raw_data] --save_path [PATH_to_OpenTrench3D_processed_data]
-  ```
+	  ```bash
+	  cd preprocess
+	  python collect_opentrench3d_data.py --data_path [PATH_to_OpenTrench3D_raw_data] --save_path [PATH_to_OpenTrench3D_processed_data]
+	  ```
 3. **Splitting Rooms into Blocks**:
     ```bash
     python room2blocks.py --data_path [PATH_to_OpenTrench3D_processed_data]/scenes
