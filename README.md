@@ -123,6 +123,19 @@ You can either directly download the preprocessed dataset directly from the link
     python room2blocks.py --data_path [PATH_to_ScanNet_processed_data]/scenes
     ```
 
+
+**Toronto3D**
+1. **Download**: [Toronto-3D](https://github.com/WeikaiTan/Toronto-3D).
+2. **Preprocessing**: Re-organize raw data into `npy` files:
+	```bash
+	cd preprocess
+	python collect_toronto3d_data.py --data_path [PATH_to_Toronto3D_raw_data] --save_path [PATH_to_Toronto3D_processed_data]
+	```
+   The generated numpy files will be stored in `PATH_to_Toronto3D_processed_data/scenes`.
+3. **Splitting Rooms into Blocks**:
+    ```bash
+    python room2blocks.py --data_path [PATH_to_Toronto3D_processed_data]/scenes
+
 After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
 
 ## Model weights
