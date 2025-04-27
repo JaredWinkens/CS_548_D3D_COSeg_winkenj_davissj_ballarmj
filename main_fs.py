@@ -26,6 +26,8 @@ from util import config
 from util.s3dis_fs import S3DIS_FS, S3DIS_FS_TEST, S3DIS_FSForVIS
 from util.scannet_v2_fs import Scannetv2_FS, Scannetv2_FS_TEST
 from util.semantic3d_fs import semantic3d_FS_TEST
+from util.opentrench3d_fs import OpenTrench3D_FS_TEST
+from util.toronto3d_fs import Toronto3D_FS_TEST
 from util.common_util import (
     AverageMeter,
     find_free_port,
@@ -303,8 +305,41 @@ def main_worker(gpu, ngpus_per_node, argss):
             num_episode_per_comb=args.num_episode_per_comb,
         )
         valid_calsses = list(val_data.classes)
+        
     elif args.data_name == "semantic3d":
         val_data = semantic3d_FS_TEST(
+          split=args.eval_split,
+            data_root=args.data_root,
+            voxel_size=args.voxel_size,
+            voxel_max=args.voxel_max,
+            transform=val_transform,
+            cvfold=args.cvfold,
+            num_episode=args.num_episode,
+            n_way=args.n_way,
+            k_shot=args.k_shot,
+            n_queries=args.n_queries,
+            num_episode_per_comb=args.num_episode_per_comb,
+        )
+        valid_calsses = list(val_data.classes)
+        
+    elif args.data_name == "opentrench3d":
+        val_data = OpenTrench3D_FS_TEST(
+          split=args.eval_split,
+            data_root=args.data_root,
+            voxel_size=args.voxel_size,
+            voxel_max=args.voxel_max,
+            transform=val_transform,
+            cvfold=args.cvfold,
+            num_episode=args.num_episode,
+            n_way=args.n_way,
+            k_shot=args.k_shot,
+            n_queries=args.n_queries,
+            num_episode_per_comb=args.num_episode_per_comb,
+        )
+        valid_calsses = list(val_data.classes)
+        
+    elif args.data_name == "toronto3d":
+        val_data = Toronto3D_FS_TEST(
             split=args.eval_split,
             data_root=args.data_root,
             voxel_size=args.voxel_size,

@@ -1,5 +1,12 @@
 # This is a fork created for a CS 548 class project at SUNY Polytechnic
+
 ### Team Members: Jared Winkens, Sawyer Davis, Michael Ballard
+
+### Modifactions:
+- Added 3 new datasets (Toronto3D, OpenTrench3D, Semantic3D)
+- Added scripts for preprocessing new datasets
+- Created instructions to facilitate adding new datasets
+- Updated the setup process to make it more comprehensive 
 
 # [CVPR 2024] Rethinking Few-shot 3D Point Cloud Semantic Segmentation
 
@@ -73,11 +80,19 @@ python3 setup.py install
 
 You can either directly download the preprocessed dataset directly from the links provided below or perform the preprocessing steps on your own.
 
-### Preprocessed Datasets
+### Original Preprocessed Datasets
 | Dataset | Download |
 | ------------------ | -------|
 | S3DIS | [Download link](https://drive.google.com/file/d/1frJ8nf9XLK_fUBG4nrn8Hbslzn7914Ru/view?usp=drive_link) |
 | ScanNet | [Download link](https://drive.google.com/file/d/19yESBZumU-VAIPrBr8aYPaw7UqPia4qH/view?usp=drive_link) |
+
+### New Preprocessed Datasets
+| Dataset | Download |
+| ------------------ | -------|
+| Toronto3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EZtBpaGr-o1KmiHuDhO2Y24BmK-bKJudWzqZsg1olK5Fmw?e=eof4mJ) |
+| OpenTrench3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EYg3yq19GhpLtAmcpNUMUn4BFY8cvHv4MWh4sd4q7sTO4A?e=80gMiK) |
+| Semantic3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EaJ5ILhaMVlCg8x9qzJy_G0B388JOdmZSGdrbwMAU_iZbg?e=OqwPp9) |
+
 
 ### Preprocessing Instructions
 
@@ -119,7 +134,34 @@ You can either directly download the preprocessed dataset directly from the link
     ```bash
     python room2blocks.py --data_path [PATH_to_Semantic3D_processed_data]/scenes
 
+
+**Toronto3D**
+1. **Download**: [Toronto-3D](https://github.com/WeikaiTan/Toronto-3D).
+2. **Preprocessing**: Re-organize raw data into `npy` files:
+	```bash
+	cd preprocess
+	python collect_toronto3d_data.py --data_path [PATH_to_Toronto3D_raw_data] --save_path [PATH_to_Toronto3D_processed_data]
+	```
+   The generated numpy files will be stored in `PATH_to_Toronto3D_processed_data/scenes`.
+3. **Splitting Rooms into Blocks**:
+    ```bash
+    python room2blocks.py --data_path [PATH_to_Toronto3D_processed_data]/scenes
+    ```
+
+
+**OpenTrench3D**
+1. **Download**: [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
+2. **Preprocessing**: Re-organize data into `npy` files:
+  ```bash
+  cd preprocess
+  python collect_opentrench3d_data.py --data_path [PATH_to_OpenTrench3D_raw_data] --save_path [PATH_to_OpenTrench3D_processed_data]
+  ```
+3. **Splitting Rooms into Blocks**:
+    ```bash
+    python room2blocks.py --data_path [PATH_to_OpenTrench3D_processed_data]/scenes
+    ```
 After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
+
 
 ## Model weights
 We provide the trained model weights across different few-shot settings and datasets below. 

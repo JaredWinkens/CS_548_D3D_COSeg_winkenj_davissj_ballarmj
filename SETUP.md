@@ -104,3 +104,6 @@ git clone https://github.com/JaredWinkens/COSeg.git
 cd COSeg/lib/pointops2
 python3 setup.py install
 ```
+### 6. Continue from "Dataset Preperation" in "README.md"
+
+
