@@ -1,0 +1,9 @@
+unlabeled
+man-made terrain
+natural terrain
+high vegetation
+low vegetation
+buildings
+hard scape
+scanning artefacts
+cars
