@@ -135,8 +135,22 @@ You can either directly download the preprocessed dataset directly from the link
 3. **Splitting Rooms into Blocks**:
     ```bash
     python room2blocks.py --data_path [PATH_to_Toronto3D_processed_data]/scenes
+    ```
 
+
+**OpenTrench3D**
+1. **Download**: [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
+2. **Preprocessing**: Re-organize data into `npy` files:
+  ```bash
+  cd preprocess
+  python collect_opentrench3d_data.py --data_path [PATH_to_OpenTrench3D_raw_data] --save_path [PATH_to_OpenTrench3D_processed_data]
+  ```
+3. **Splitting Rooms into Blocks**:
+    ```bash
+    python room2blocks.py --data_path [PATH_to_OpenTrench3D_processed_data]/scenes
+    ```
 After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
+
 
 ## Model weights
 We provide the trained model weights across different few-shot settings and datasets below. 
