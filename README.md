@@ -1,12 +1,26 @@
 # This is a fork created for a CS 548 class project at SUNY Polytechnic
-
 ### Team Members: Jared Winkens, Sawyer Davis, Michael Ballard
 
 ### Modifactions:
 - Added 3 new datasets (Toronto3D, OpenTrench3D, Semantic3D)
-- Added scripts for preprocessing new datasets
-- Created instructions to facilitate adding new datasets
-- Updated the setup process to make it more comprehensive 
+  | Dataset | Pre-Processed Data| Raw Data |
+  | ------------------ | -------| ---------|
+  | Toronto3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EZtBpaGr-o1KmiHuDhO2Y24BmK-bKJudWzqZsg1olK5Fmw?e=eof4mJ) | [Download link](https://github.com/WeikaiTan/Toronto-3D) |
+  | OpenTrench3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EYg3yq19GhpLtAmcpNUMUn4BFY8cvHv4MWh4sd4q7sTO4A?e=80gMiK) | [Download link](https://github.com/SimonBuusJensen/OpenTrench3D) |
+  | Semantic3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EaJ5ILhaMVlCg8x9qzJy_G0B388JOdmZSGdrbwMAU_iZbg?e=OqwPp9) | [Download link](https://www.semantic3d.net/) |
+- Added and modified scripts for preprocessing new datasets
+  
+  **New Files Added**
+  - root/config/[DATASET_NAME]_COSeg_fs.yaml
+  - root/datasets/[DATASET_NAME]_classnames.txt
+  - root/preprocess/collect_[DATASET_NAME]_data.py
+  - root/util/[DATASET_NAME]_fs.py
+  
+  **Existing Files Modified**
+  - root/main_fs.py
+- Created instructions to facilitate adding new datasets ([ADD_DATASET.md](./ADD_DATASET.md))
+- Updated the setup process to make it more comprehensive ([SETUP.md](./SETUP.md))
+- Added a folder to store the results of our experiments ([EXPERIMENTS](./experiments))
 
 # [CVPR 2024] Rethinking Few-shot 3D Point Cloud Semantic Segmentation
 
@@ -16,11 +30,9 @@ Welcome to the official PyTorch implementation repository of our paper [**Rethin
 
 # News :triangular_flag_on_post:
 
-- *2023/04/11*: 🔥 **GFS-VL** code is now publicly available! We've released pre-trained model weights and benchmark datasets to facilitate research. Building on the efficient [Pointcept codebase](https://github.com/Pointcept/Pointcept), our [GFS-VL repository](https://github.com/ZhaochongAn/GFS-VL) provides **everything you need** to get started with 3D few-shot learning powered by vision-language models.
+- *2025/03/21*: Our new **CVPR 2025** paper, *[Generalized Few-shot 3D Point Cloud Segmentation with Vision-Language Model](https://arxiv.org/pdf/2503.16282)*, is now public. Check out the [GFS-VL paper](https://arxiv.org/pdf/2503.16282) for more details and the code will be released soon in the [GFS-VL repo](https://github.com/ZhaochongAn/GFS-VL).
 
-- *2023/03/21*: 📣 Our **CVPR 2025** paper *[Generalized Few-shot 3D Point Cloud Segmentation with Vision-Language Model](https://arxiv.org/pdf/2503.16282)* is now available! Read the [full paper](https://arxiv.org/pdf/2503.16282) for efficient 3D few-shot learning with vision-language models. Code will be released in our [GFS-VL repository](https://github.com/ZhaochongAn/GFS-VL).
-
-- *2023/03/09*: 🏆 Our paper *[Multimodality Helps Few-shot 3D Point Cloud Semantic Segmentation](https://arxiv.org/pdf/2410.22489)* has been accepted to **ICLR 2025 as a Spotlight presentation**! Check out the [paper](https://arxiv.org/pdf/2410.22489) and our [implementation repository](https://github.com/ZhaochongAn/Multimodality-3D-Few-Shot) for more details.
+- *2025/03/09*: Our new paper *[Multimodality Helps Few-shot 3D Point Cloud Semantic Segmentation](https://arxiv.org/pdf/2410.22489)* is accepted to **ICLR 2025 as a Spotlight**. Check out the [paper](https://arxiv.org/pdf/2410.22489) and our [repo](https://github.com/ZhaochongAn/Multimodality-3D-Few-Shot) for more details.
 
 # Highlight 
 
@@ -42,155 +54,80 @@ Welcome to the official PyTorch implementation repository of our paper [**Rethin
 3. **Novel Method (*COSeg*)**: Our method introduces **a novel correlation optimization paradigm**, diverging from the traditional feature optimization approach used by all previous *FS-PCS* models. COSeg achieves state-of-the-art performance on both S3DIS and ScanNetv2 datasets, demonstrating effective contextual learning and background correlation adjustment ability.
 
 
-# Get Started (New Version)
+# Get Started
 
-## Prerequsites
-**OS**: Ubuntu 22.04
+## Environment
+The following environment setup instructions have been tested on RTX 3090 GPUs with GCC 6.3.0.
 
-Ensure you have installed `gcc 10`, `cuda 11.3`, and `nvcc`.
+1. **Install dependencies**
 
-## Install GCC 10
-### Check if GCC 10 is already installed
 ```
-gcc --version
-```
-### If not installed:
-### 1. Add the toolchain PPA (if not already added)
-```
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt update
-```
-### 2. Install GCC 10 and G++ 10
-```
-sudo apt install gcc-10 g++-10
-```
-### 3. Switch to GCC 10 (Permanently)
-```
-sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100
-sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
-
-sudo update-alternatives --config gcc
-sudo update-alternatives --config g++
+pip install -r requirements.txt
 ```
 
-## Intall CUDA 11.3 and NVCC
-### Make sure you already have an NVIDIA driver installed and working
-```
-nvidia-smi
-```
-### If not installed yet, install one that's compatible:
-```
-sudo apt install nvidia-driver-525
-```
-### Manually Install Only the Toolkit (No Driver)
-```
-sudo apt-get install cuda-toolkit-11-3
-```
+If you have any problem with the above command, you can also install them by
 
-## Setup Virtual Environment
-
-**Open a terminal and do the following:**
-
-### Make sure Python 3.8 is installed
-```
-python3.8 --version
-```
-### If not installed, install it:
-```
-sudo apt install python3.8 python3.8-venv
-```
-### If the above command throws an error, do the following:
-```
-sudo apt update
-sudo apt install -y build-essential libssl-dev zlib1g-dev \
-libncurses5-dev libncursesw5-dev libreadline-dev libsqlite3-dev \
-libgdbm-dev libdb5.3-dev libbz2-dev libexpat1-dev liblzma-dev tk-dev wget
-```
-```
-cd /tmp
-wget https://www.python.org/ftp/python/3.7.17/Python-3.7.17.tgz
-tar -xzf Python-3.7.17.tgz
-cd Python-3.7.17
-./configure --enable-optimizations
-make -j$(nproc)
-sudo make altinstall
-```
-### 1. Create a new venv using Python 3.8
-```
-python3.8 -m venv myenv38
-```
-### 2. Activate the venv
-```
-source myenv38/bin/activate
-```
-### 3. Install Dependencies
 ```
 pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113
 pip install torch_points3d==1.3.0
 pip install torch-scatter==2.1.1
-pip install torch-sparse==0.6.14
 pip install torch-points-kernels==0.6.10
 pip install torch-geometric==1.7.2
 pip install timm==0.9.2
-pip install termcolor==2.3.0
-pip install h5py==3.8.0
 pip install tensorboardX==2.6
 pip install numpy==1.20.3
 ```
 
-For incompatible installation issues, such as wanting a higher torch version (e.g., 2.1.0) but conflicts with torch_points3d, please refer to this thread: https://github.com/ZhaochongAn/COSeg/issues/16 or feel free to open a new discussion for further assistance.
+For incompatiable installation issues, such as wanting a higher torch version (e.g., 2.1.0) but conflicts with torch_points3d, please refer to this thread: https://github.com/ZhaochongAn/COSeg/issues/16 or feel free to open a new discussion for further assistance.
 
-### 4. Clone repo
-```
-git clone https://github.com/JaredWinkens/COSeg.git
-```
+2. **Compile pointops**
 
-### 5. Compile pointops
+Ensure you have `gcc`, `cuda`, and `nvcc` installed. Compile and install pointops2 as follows:
 ```
-cd COSeg/lib/pointops2
+cd lib/pointops2
 python3 setup.py install
 ```
 
 ## Datasets Preparation
 
-You can either directly download the preprocessed dataset from the links provided below or perform the preprocessing steps on your own.
+You can either directly download the preprocessed dataset directly from the links provided below or perform the preprocessing steps on your own.
 
-Additionally, if you would like to train/test this approach on a brand new dataset, please follow the instructions in [ADD_DATASET.md](./ADD_DATASET.md).
-
-### Original Preprocessed Datasets
+### Preprocessed Datasets
 | Dataset | Download |
 | ------------------ | -------|
 | S3DIS | [Download link](https://drive.google.com/file/d/1frJ8nf9XLK_fUBG4nrn8Hbslzn7914Ru/view?usp=drive_link) |
 | ScanNet | [Download link](https://drive.google.com/file/d/19yESBZumU-VAIPrBr8aYPaw7UqPia4qH/view?usp=drive_link) |
 
-### New Preprocessed Datasets
-| Dataset | Download |
-| ------------------ | -------|
-| Toronto3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EZtBpaGr-o1KmiHuDhO2Y24BmK-bKJudWzqZsg1olK5Fmw?e=eof4mJ) |
-| OpenTrench3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EYg3yq19GhpLtAmcpNUMUn4BFY8cvHv4MWh4sd4q7sTO4A?e=80gMiK) |
-| Semantic3D | [Download link](https://sunypoly-my.sharepoint.com/:u:/g/personal/winkenj_sunypoly_edu/EaJ5ILhaMVlCg8x9qzJy_G0B388JOdmZSGdrbwMAU_iZbg?e=OqwPp9) |
-
-
 ### Preprocessing Instructions
 
-1. **Download Raw Data** (choose one below):
-   - [S3DIS Dataset Version 1.2](http://buildingparser.stanford.edu/dataset.html)
-   - [ScanNet V2](http://www.scan-net.org/)
-   - [Semantic3D](https://www.semantic3d.net/)
-   - [Toronto-3D](https://github.com/WeikaiTan/Toronto-3D)
-   - [OpenTrench3D](https://github.com/SimonBuusJensen/OpenTrench3D)
-3. **Preprocessing**: Re-organize raw data into `npy` files:
+**S3DIS**
+1. **Download**: [S3DIS Dataset Version 1.2](http://buildingparser.stanford.edu/dataset.html).
+2. **Preprocessing**: Re-organize raw data into `npy` files:
    ```bash
    cd preprocess
-   python collect_[DATASET_NAME]_data.py --data_path [PATH_to_[DATASET_NAME]_raw_data] --save_path [PATH_to_[DATASET_NAME]_processed_data]
+   python collect_s3dis_data.py --data_path [PATH_to_S3DIS_raw_data] --save_path [PATH_to_S3DIS_processed_data]
    ```
-   The generated numpy files will be stored in `PATH_to_[DATASET_NAME]_processed_data/scenes`.
-4. **Splitting Rooms into Blocks**:
+   The generated numpy files will be stored in `PATH_to_S3DIS_processed_data/scenes`.
+3. **Splitting Rooms into Blocks**:
     ```bash
-    python room2blocks.py --data_path [PATH_to_[DATASET_NAME]_processed_data]/scenes
+    python room2blocks.py --data_path [PATH_to_S3DIS_processed_data]/scenes
     ```
-After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
 
+
+**ScanNet**
+1. **Download**: [ScanNet V2](http://www.scan-net.org/).
+2. **Preprocessing**: Re-organize raw data into `npy` files:
+	```bash
+	cd preprocess
+	python collect_scannet_data.py --data_path [PATH_to_ScanNet_raw_data] --save_path [PATH_to_ScanNet_processed_data]
+	```
+   The generated numpy files will be stored in `PATH_to_ScanNet_processed_data/scenes`.
+3. **Splitting Rooms into Blocks**:
+    ```bash
+    python room2blocks.py --data_path [PATH_to_ScanNet_processed_data]/scenes
+    ```
+
+After preprocessing the datasets, a folder named `blocks_bs1_s1` will be generated under `PATH_to_DATASET_processed_data`. Make sure to update the `data_root` entry in the .yaml config file to `[PATH_to_DATASET_processed_data]/blocks_bs1_s1/data`.
 
 ## Model weights
 We provide the trained model weights across different few-shot settings and datasets below. 
